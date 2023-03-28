@@ -1,4 +1,4 @@
-<a href="https://github.com/chrislima-inatel">
+<a href="https://github.com/chrislima">
 <img src="https://img.shields.io/static/v1?label=Professor&message=Christopher Lima&color=blue&?style=social&logo=GitHub">
 </a>
 
