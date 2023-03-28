@@ -1,3 +1,5 @@
+import org.json.JSONObject;
+
 public class Professor {
     private String nome;
     private String horarioAtendimento;
@@ -54,4 +56,26 @@ public class Professor {
     public void setPredio(int predio) {
         this.predio = predio;
     }
+
+    public static Professor fromJson(String json) {
+        JSONObject jsonObj = new JSONObject(json);
+        String nome = jsonObj.getString("nome");
+        String horarioAtendimento = jsonObj.getString("horarioAtendimento");
+        String periodo = jsonObj.getString("periodo");
+        int sala = jsonObj.getInt("sala");
+        int predio = jsonObj.getInt("predio");
+
+        return new Professor(nome, horarioAtendimento, periodo, sala, predio);
+    }
+
+    public String toJson() {
+        JSONObject jsonObj = new JSONObject();
+        jsonObj.put("nome", nome);
+        jsonObj.put("horarioAtendimento", horarioAtendimento);
+        jsonObj.put("periodo", periodo);
+        jsonObj.put("sala", sala);
+        jsonObj.put("predio", predio);
+        return jsonObj.toString();
+    }
+
 }
