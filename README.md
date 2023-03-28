@@ -1,4 +1,7 @@
-Professor: Christopher Lima
+<a href="https://github.com/chrislima-inatel">
+<img src="https://img.shields.io/static/v1?label=Professor&message=Christopher Lima&color=blue&?style=social&logo=GitHub">
+</a>
+
 # Exercício prático C214 (Teórica)
 
 ![Repo Size](https://img.shields.io/github/repo-size/joaodutra88/C214-exercicio-pratico1)
