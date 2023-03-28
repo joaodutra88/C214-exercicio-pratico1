@@ -104,10 +104,10 @@ public class ProfessorTest {
     }
 
     @Test
-    public void testEqualsTrue() {
+    public void testEqualsFalse() {
         Professor professor1 = new Professor("João", "Segunda-feira, das 14h às 16h", "Integral", 9, 3);
-        Professor professor2 = new Professor("João", "Segunda-feira, das 14h às 16h", "Integral", 9, 3);
-        assertTrue(professor1.equals(professor2));
+        Professor professor2 = new Professor("Roberto", "Quarta-feira, das 13h às 14h", "Noturno", 9, 3);
+        assertFalse(professor1.equals(professor2));
     }
 
     @Test
