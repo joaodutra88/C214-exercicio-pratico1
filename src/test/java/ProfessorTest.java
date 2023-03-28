@@ -118,5 +118,70 @@ public class ProfessorTest {
 
 
     // testes com cenário de falha
+    @Test
+    public void testCriacaoProfessorComNomeNulo() {
+        assertThrows(NullPointerException.class, () -> {
+            Professor professor = new Professor(null, "Segunda-feira, das 14h às 16h", "Noturno", 9, 3);
+        });
+    }
+
+    @Test
+    public void testCriacaoProfessorComHorarioAtendimentoNulo() {
+        assertThrows(NullPointerException.class, () -> {
+            Professor professor = new Professor("João", null, "Noturno", 9, 3);
+        });
+    }
+
+    @Test
+    public void testCriacaoProfessorComPeriodoNulo() {
+        assertThrows(NullPointerException.class, () -> {
+            Professor professor = new Professor("João", "Segunda-feira, das 14h às 16h", null, 9, 3);
+        });
+    }
+
+    @Test
+    public void testCriacaoProfessorComSalaMenorQueZero() {
+        assertThrows(IllegalArgumentException.class, () -> {
+            Professor professor = new Professor("João", "Segunda-feira, das 14h às 16h", "Noturno", -1, 3);
+        });
+    }
+
+    @Test
+    public void testCriacaoProfessorComPredioMenorQueZero() {
+        assertThrows(IllegalArgumentException.class, () -> {
+            Professor professor = new Professor("João", "Segunda-feira, das 14h às 16h", "Noturno", 9, -1);
+        });
+    }
+
+    @Test
+    public void testFromJsonQuandoJsonNulo() {
+        assertThrows(IllegalArgumentException.class, () -> {
+            Professor.fromJson(null);
+        });
+    }
+
+    @Test
+    public void testFromJsonQuandoJsonVazio() {
+        assertThrows(IllegalArgumentException.class, () -> {
+            Professor.fromJson("");
+        });
+    }
+
+    @Test
+    public void testEqualsComObjetosDiferentes() {
+        Professor professor1 = new Professor("João", "Segunda-feira, das 14h às 16h", "Noturno", 9, 1);
+        Professor professor2 = new Professor("Maria", "Segunda-feira, das 14h às 16h", "Noturno", 9, 1);
+        assertFalse(professor1.equals(professor2));
+    }
+
+    @Test
+    public void testPredioNaoPodeSerMaiorQue6() {
+        try {
+            Professor professor = new Professor("João", "Segunda-feira, das 14h às 16h", "Noturno", 9, 15);
+            fail("Deveria ter lançado uma exceção.");
+        } catch (IllegalArgumentException e) {
+            assertEquals("Prédio do professor não pode ser maior que 6.", e.getMessage());
+        }
+    }
 }
 

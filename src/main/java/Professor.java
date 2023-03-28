@@ -8,6 +8,8 @@ import net.minidev.json.JSONValue;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import java.util.Objects;
+
 
 public class Professor {
     private String nome;
@@ -18,15 +20,26 @@ public class Professor {
 
     // construtor
     public Professor(String nome, String horarioAtendimento, String periodo, int sala, int predio) {
-        this.nome = nome;
-        this.horarioAtendimento = horarioAtendimento;
-        this.periodo = periodo;
+        this.nome = Objects.requireNonNull(nome);
+        this.horarioAtendimento = Objects.requireNonNull(horarioAtendimento);
+        this.periodo = Objects.requireNonNull(periodo);
+        if (sala < 0) {
+            throw new IllegalArgumentException("Sala do professor não pode ser menor que zero.");
+        }
         this.sala = sala;
+        if (predio < 0) {
+            throw new IllegalArgumentException("Prédio do professor não pode ser menor que zero.");
+        }
+        if (predio > 6) {
+            throw new IllegalArgumentException("Prédio do professor não pode ser maior que 6.");
+        }
         this.predio = predio;
     }
-
     // getters e setters
     public String getNome() {
+        if (nome == null || nome.trim().isEmpty()) {
+            throw new IllegalArgumentException();
+        }
         return nome;
     }
 
@@ -35,6 +48,9 @@ public class Professor {
     }
 
     public String getHorarioAtendimento() {
+        if (horarioAtendimento == null || horarioAtendimento.trim().isEmpty()) {
+            throw new IllegalArgumentException("Horário do professor não pode ser nulo ou vazio.");
+        }
         return horarioAtendimento;
     }
 
@@ -43,6 +59,9 @@ public class Professor {
     }
 
     public String getPeriodo() {
+        if (periodo == null || periodo.trim().isEmpty()) {
+            throw new IllegalArgumentException("Período do professor não pode ser nulo ou vazio.");
+        }
         return periodo;
     }
 
@@ -51,6 +70,9 @@ public class Professor {
     }
 
     public int getSala() {
+        if (sala < 0) {
+            throw new IllegalArgumentException("Sala do professor não pode ser menor que zero.");
+        }
         return sala;
     }
 
@@ -67,6 +89,9 @@ public class Professor {
     }
 
     public static Professor fromJson(String json) {
+        if (json == null || json.isEmpty()) {
+            throw new IllegalArgumentException("JSON string cannot be empty");
+        }
         JSONObject jsonObj = new JSONObject(json);
         String nome = jsonObj.getString("nome");
         String horarioAtendimento = jsonObj.getString("horarioAtendimento");
@@ -87,14 +112,5 @@ public class Professor {
         sb.append("}");
         return sb.toString();
     }
-//    public String toJson() {
-//        Map<String, Object> map = new LinkedHashMap<>();
-//        map.put("nome", nome);
-//        map.put("horarioAtendimento", horarioAtendimento);
-//        map.put("periodo", periodo);
-//        map.put("sala", sala);
-//        map.put("predio", predio);
-//        JSONObject jsonObj = new JSONObject(map, JSONStyle.NO_COMPRESS);
-//        return jsonObj.toString();
-//    }
+
 }
